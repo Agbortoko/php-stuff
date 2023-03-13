@@ -1,22 +1,60 @@
 
-<?php
+<?php require 'questions.php';?>
 
-$survey = [
+<?php 
 
-    [
-        "id" => 1,
-        "title" => "Number of Poor People in Cameroon",
-        "description" => "This survey is to verify the number of poor people in Cameroon, all you have to do is answer the questions",
-        "slug" => "number-of-poor-people-in-cameroon"
-       
-   ]
+   if(isset($_GET['id'])){
 
-];
+     $surveyId = $_GET['id'];
 
 
-user => @ben
-user2 = @helen
+   } 
 
-https://rabbitmaid.com/@helen/number-of-poor-people-in-cameroon/
+?>
+<form action="" method="POST">
+
+<?php foreach($questions as $question) : ?>
+
+    <?php if($surveyId == $question['survey_id']): ?>
+
+    <p><?= $question['title'] ?></p>
+
+        <?php foreach($forms as $field): ?>
+
+            <?php if($question['form_id'] == $field['id']): ?>
 
 
+                <!-- If the tag is an input tag -->
+                <?php if($field['tag'] == "input"): ?>
+
+                    <div>
+                        <input type="<?= $field['type'] ?>"  placeholder="<?= $question['title'] ?>">
+                    </div>
+
+                <?php endif ?>
+
+
+                <?php if($field['tag'] == "textarea"): ?>
+
+            
+                    <textarea placeholder="<?= $question['title'] ?>" > </textarea>
+            
+
+                <?php endif ?>
+
+
+            <?php endif ?>
+
+        <?php endforeach ?>
+
+    <?php endif ?>
+
+
+<?php endforeach ?>
+
+
+
+
+<button type="submit" style="margin-top: 11px; display:block;">Submit Survey</button>
+
+</form>
